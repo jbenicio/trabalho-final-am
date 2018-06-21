@@ -24,12 +24,15 @@
 
 \begin{document}
     \maketitle
+    
     \begin{abstract}
         Redes neurais artificiais (ANNs do inglês \textit{Artificial Neural Networks}) tem sido a base para diversos modelos aplicados na área de visão computacional (CV do inglês \textit{Computer Vision}). Dentre as ANNs, podemos destacar as redes neurais convolucionais (CNNs do inglês \textit{Convolutional Neural Networks}) utilizadas para a construção de algoritmos de detecção de padrões em imagens. Neste artigo, será apresentado o estudo de CNNs aplicadas a CV e demonstrado o desenvolvimento de uma aplicação para o reconhecimento de faces humanas em imagens, utilizando a linguagem de programação Python em conjunto com a biblioteca DLIB. 
     \end{abstract}
-     \begin{IEEEkeywords}
+    
+    \begin{IEEEkeywords}
      	  Detecção Facial, Redes Neurais Convolucionais, Python, Biblioteca DLIB.
-	\end{IEEEkeywords}
+	 \end{IEEEkeywords}
+	
     \section{INTRODUÇÃO}
 		A detecção facial é uma técnica de CV utilizada para a detecção de faces humanas em imagens.	Apesar de ser um procedimento simples para os homens, é uma tarefa com um alto grau de complexidade para computadores, visto que rostos podem variar em iluminação, cor, posicionamento e escala. Existem uma gama de aplicações para a detecção facial, como exemplos, o reconhecimento de faces humanas, o autofoco utilizado em câmeras digitais, dentre outras.
 		
@@ -40,6 +43,48 @@
 		Este artigo está organizado da seguinte forma: a Seção II irá apresentar um estudo sobre os principais conceitos relacionados as redes neurais convolucionais no processamento de imagem; na Seção III será apresentado a aplicação desenvolvida em Python para o reconhecimento de faces humanas em imagens; a Seção IV mostrará os resultados obtidos da aplicação desenvolvida e a Seção V irá apresentar as conclusões.   
 		
 	 \section{REDES NEURAIS CONVOLUCIONAIS}
-	
+		As redes neurais convolucionais são redes neurais artificiais profundas que podem ser usadas para classificar imagens, extrair padrões e agrupá-las por similaridade, realizando o reconhecimento de objetos. São algoritmos que podem identificar rostos, objetos e outros aspectos dos dados visuais.
+
+        CNNs apresentam uma camada de entrada e uma de saída e múltiplas camadas ocultas. As camadas ocultas são compostas por camadas convolucionais, de subamostragens (também conhecida como camada de \textit{pooling}) e por camadas completamente conectadas, como pode ser observado na Figura 1:
+        
+		\begin{figure}[h!b]
+			\centering \includegraphics[width=10.5cm,height=5cm]{CNN}
+			\caption{Exemplo de uma CNN com suas camadas} 
+		\end{figure}
 		
+		As camadas de convolução são responsáveis por identificar padrões e extrair diversas características da imagem, como bordas, cores e até mesmo padrões mais complexos de serem identificados, como olhos e narizes.  Esta camada é composta por um conjunto de filtros (ou \textit{kernels}) de convolução capazes de aprender de acordo com um treinamento. Os filtros são matrizes pequenas compostas por valores reais que podem ser interpretado como pesos. Esses filtros são convoluídos com os dados de entradas para obter um mapa de características. Estes mapas indicam regiões na qual padrões específicos em relação ao filtro, são encontradas na entrada. Os valores reais dos filtros se alteram ao longo do treinamento, do mesmo modo como os pesos de uma rede neural tradicional, fazendo com que a rede aprenda a identificar regiões significantes para extrair características do conjunto de dados.
+		
+		Um exemplo de convolução entre um filtro e uma imagem é apresentado na Figura 2:
+		
+		\begin{figure}[h!b]
+			\centering \includegraphics[width=5cm,height=6cm]{convolucao.jpg}
+			\caption{Exemplo de convolução entre um filtro e uma imagem \cite{b2}} 
+		\end{figure}
+         
+        Uma imagem é formada por um sistema de cores denominado RGB, em que o vermelho (\textit{red}), o verde (\textit{green}) e o azul (\textit{blue}) são combinados de várias formas de modo a reproduzir um largo espectro cromático. Neste exemplo, é apresentada uma imagem no sistema RGB 3 x 3 x 3 e um filtro 2 x 2 x 3. A convolução é realizada através do produto escalar de um pixel da imagem pelo filtro. Na sequência o filtro é deslizado para outra região e o produto escalar é realizado novamente até que toda a imagem seja percorrida. Cada canal é convoluído por uma dimensão diferente do filtro, que neste exemplo esta representado pela mesma cor do canal. O resultado final do processo de convolução é uma matriz chamada de mapa de características. Em cada camada de convolução de uma CNN pode ser aplicado o procedimento apresentado na Figura 2 para diferentes filtros, formando assim diversos mapas de características a cada camada convolutiva. 
+        
+         Após a operação de convolução apresentada na Figura 2, normalmente é aplicado uma função de ativação. Uma função bastante utilizada é a max(0,x), em que cada elemento menor do que zero, torna-se zero e os elementos maiores do que zero, permanecem com o mesmo valor.
+         
+         Traçando um paralelo com as RNAs, em uma camada convolutiva as entradas são os pixels da imagem e os pesos sinápticos são apresentados por cada valor contido no filtro. 
+
+		  Após a camada de convolução, normalmente é utilizada uma camada de subamostragem. Esta camada tem por objetivo reduzir o tamanho espacial dos mapas de características gerados a partir do processo de convolução. Esta técnica reduz a quantidade de parâmetros a serem aprendidos na rede, diminuindo a complexidade da rede, desta maneira evitando o \textit{overfitting}. Algumas técnicas são aplicadas para a redução espacial das matrizes resultantes da convolução, como obtendo-se a soma, tirando a média, selecionando-se o maior (max \textit{pooling}) ou menor (min \textit{pooling}) da matriz em análise, desta maneira, produz-se uma sumarização do mapa de características. A Figura 3 apresenta um exemplo de utilização da técnica de max \textit{pooling}:
+         
+       \begin{figure}[h!b]
+			\centering \includegraphics[width=5cm,height=2.7cm]{max-pooling.jpg}
+			\caption{Exemplo de utilização da técnica de max \textit{pooling} \cite{b2}} 
+		\end{figure}         
+         
+          A camada completamente conectada segue o mesmo princípio de uma rede neural multicamada tradicional em que cada camada é completamente conectada com a camada anterior.             
+         
+	 \section{APLICAÇÃO PARA DETECÇÃO DE FACES HUMANAS EM IMAGENS}
+         
+         
+	  \begin{thebibliography}{00}
+	  
+		\bibitem{b1} Haykin, Simon S., et al. Neural networks and learning machines. Vol. 3. Upper Saddle River, NJ, 			USA:: Pearson, 2009.
+		
+		\bibitem{b2} http://www.computacaointeligente.com.br/artigos/redes-neurais-convolutivas-cnn/, acessado em 		        21/06/2018
+		
+	  \end{thebibliography}
+
 \end{document}

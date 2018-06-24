@@ -9,6 +9,32 @@
 \usepackage{xcolor}
 \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codedarkgray}{rgb}{0,0,0}
+\definecolor{codeblue}{rgb}{0,0,1}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ \lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codedarkgray},
+    stringstyle=\color{codeblue},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ \lstset{style=mystyle}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 \usepackage{hyperref}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -77,13 +103,74 @@
           A camada completamente conectada segue o mesmo princípio de uma rede neural multicamada tradicional em que cada camada é completamente conectada com a camada anterior.             
          
 	 \section{APLICAÇÃO PARA DETECÇÃO DE FACES HUMANAS EM IMAGENS}
+	 
+          O programa abaixo foi utilizado para a detecção facial:	   
          
+	\begin{lstlisting}[breaklines=true, language=Python, caption=Programa utilizado para detecção facial]
+import cv2
+import dlib
+
+imagem = cv2.imread("recursos/nome_imagem.extensao")
+detector = dlib.cnn_face_detection_model_v1("recursos/mmod_human_face_detector.dat")
+facesDetectadas = detector(imagem, 2)
+for face in facesDetectadas:
+    e, t, d, b = (int(face.rect.left()), int(face.rect.top()), int(face.rect.right()), int(face.rect.bottom()))
+    cv2.rectangle(imagem, (e, t), (d, b), (255, 255, 0), 2)
+
+cv2.imshow("Detector CNN", imagem)
+cv2.waitKey(0)
+cv2.destroyAllWindows()\end{lstlisting}
+
+
+         Na linha 1 foi feito o \textit{import} da biblioteca openCV (cv2). Esta biblioteca será utilizada para ler a imagem, desenhar os retângulos das faces detectadas nas fotos e também por exibir a imagem com as faces detectadas. A documentação da biblioteca openCV em python pode ser encontrada em \cite{b3}.
+         
+         Na linha 2 foi feito o \textit{import} da biblioteca DLIB. Esta biblioteca será utilizada para realizar a detecção de faces humanas em imagens utilizando uma rede neural convolucional. A documentação da biblioteca DLIB em python pode ser encontrada em \cite{b4}.
+         
+         Na linha 4 foi feito o carregamento da imagem utilizando a função cv2.imread(). Na linha 5 o objeto dlib.cnn\_face\_detection\_model\_v1 detecta faces humanas em imagens. O construtor carrega o modelo de detecção facial de um arquivo. No código apresentado na \textit{Listing} 1, foi utilizado o modelo pré-treinado disponível em \url{http://dlib.net/files/mmod\_human\_face\_detector.dat.bz2}. Na linha 6, foi passados como argumento na função detector, a imagem carregada na linha 4 e o valor 2 como segundo argumento, que indica em quanto será aumentado a resolução da imagem. Quanto maior este argumento, maior será o número de faces detectadas na imagem e será exigido um maior poder de processamento da máquina que estiver rodando o programa. A função detector retorna as coordenadas das faces encontradas na imagem.
+         
+         As linhas 7, 8 e 9 são responsáveis por percorrer as coordenadas de todas as faces detectadas e desenhar um retângulo em volta de cada uma delas. Por fim, as linhas 11, 12 e 13 exibem a imagem com as faces detectadas.
+         
+         Foram utilizadas como entradas no programa apresentado na \textit{Listing} 1 as Figuras 4, 5 e 6:
+         
+         \begin{figure}[h!b]
+			\centering \includegraphics[width=7cm,height=5cm]{brasil_1994.jpg}
+			\caption{Imagem utilizada como exemplo para detecção facial \cite{b5}} 
+		\end{figure}
+		
+	    \begin{figure}[h!b]
+			\centering \includegraphics[width=4cm,height=6cm]{matrix.jpg}
+			\caption{Imagem utilizada como exemplo para detecção facial \cite{b6}} 
+		\end{figure}
+
+         \begin{figure}[h!b]
+			\centering \includegraphics[width=7cm,height=4cm]{iron.jpg}
+			\caption{Imagem utilizada como exemplo para detecção facial \cite{b7}} 
+		\end{figure}
+
+	\section{RESULTADOS OBTIDOS}
+	
+	\section{CONCLUSÕES}
+
+          
          
 	  \begin{thebibliography}{00}
 	  
 		\bibitem{b1} Haykin, Simon S., et al. Neural networks and learning machines. Vol. 3. Upper Saddle River, NJ, 			USA:: Pearson, 2009.
 		
-		\bibitem{b2} http://www.computacaointeligente.com.br/artigos/redes-neurais-convolutivas-cnn/, acessado em 		        21/06/2018
+		\bibitem{b2} http://www.computacaointeligente.com.br/artigos/redes-neurais-convolutivas-cnn/, acessado em 		        21/06/2018.
+		
+		\bibitem{b3} https://docs.opencv.org//3.0-beta/doc/py\_tutorials/py\_tutorials.html, acessado em 24/06/2018.
+		
+		\bibitem{b4} http://dlib.net/python/index.html, acessado em 24/06/2018.
+		
+		\bibitem{b5} https://www.imortaisdofutebol.com/2012/12/19/selecoes-imortais-brasil-1994/, acessado em                                                                   		24/06/2018
+		
+		\bibitem{b6} http://www.allposters.com.br/-sp/Matrix-posters\_i8032466\_.html, acessado em 24/06/2018.
+
+		\bibitem{b7} https://oglobo.globo.com/cultura/musica/iron-maiden-vem-ao-brasil-para-cinco-shows-em-						marco-17699861, acessado em 24/06/2018.
+
+
+
 		
 	  \end{thebibliography}
 

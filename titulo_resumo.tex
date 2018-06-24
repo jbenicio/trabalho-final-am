@@ -75,7 +75,7 @@
         
 		\begin{figure}[h!b]
 			\centering \includegraphics[width=10.5cm,height=5cm]{CNN}
-			\caption{Exemplo de uma CNN com suas camadas} 
+			\caption{Exemplo de uma CNN com suas camadas (Baseado em \cite{b1})} 
 		\end{figure}
 		
 		As camadas de convolução são responsáveis por identificar padrões e extrair diversas características da imagem, como bordas, cores e até mesmo padrões mais complexos de serem identificados, como olhos e narizes.  Esta camada é composta por um conjunto de filtros (ou \textit{kernels}) de convolução capazes de aprender de acordo com um treinamento. Os filtros são matrizes pequenas compostas por valores reais que podem ser interpretado como pesos. Esses filtros são convoluídos com os dados de entradas para obter um mapa de características. Estes mapas indicam regiões na qual padrões específicos em relação ao filtro, são encontradas na entrada. Os valores reais dos filtros se alteram ao longo do treinamento, do mesmo modo como os pesos de uma rede neural tradicional, fazendo com que a rede aprenda a identificar regiões significantes para extrair características do conjunto de dados.
@@ -155,17 +155,17 @@ cv2.destroyAllWindows()\end{lstlisting}
 		
 		 \begin{figure}[h!b]
 			\centering \includegraphics[width=7cm,height=4cm]{brasil_1994_detectada.png}
-			\caption{Imagem utilizada como exemplo para detecção facial \cite{b5}} 
+			\caption{Figura 4 com as faces detectadas} 
 		\end{figure}
 		
 	    \begin{figure}[h!b]
 			\centering \includegraphics[width=4cm,height=6cm]{matrix_detectada.png}
-			\caption{Imagem utilizada como exemplo para detecção facial \cite{b6}} 
+			\caption{Figura 5 com as faces detectadas} 
 		\end{figure}
 
          \begin{figure}[h!b]
 			\centering \includegraphics[width=7cm,height=4cm]{iron_detectada.png}
-			\caption{Imagem utilizada como exemplo para detecção facial \cite{b7}} 
+			\caption{Figura 6 com as faces detectadas} 
 		\end{figure}
 		
         Como podem ser visto nas Figuras 7, 8 e 9, todas as faces contidas nas três figuras foram identificadas. Uma métrica útil é a confiança que pode ser obtida com o uso da DLIB. Para isto, basta acessar o atributo confidence da classe dlib.mmod\_rectangle, isto pode ser feito com a substituição da linha 8 do programa apresentado na \textit{Listing} 1 pela seguinte linha apresentada na \textit{Listing 2}:
@@ -200,9 +200,9 @@ cv2.destroyAllWindows()\end{lstlisting}
       
          
 	  \begin{thebibliography}{00}
-	  
-		\bibitem{b1} Haykin, Simon S., et al. Neural networks and learning machines. Vol. 3. Upper Saddle River, NJ, 			USA:: Pearson, 2009.
-		
+
+		\bibitem{b1} https://en.wikipedia.org/wiki/Convolutional\_neural\_network, acessado em 24/06/2018	  
+	  		
 		\bibitem{b2} http://www.computacaointeligente.com.br/artigos/redes-neurais-convolutivas-cnn/, acessado em 		        21/06/2018.
 		
 		\bibitem{b3} https://docs.opencv.org//3.0-beta/doc/py\_tutorials/py\_tutorials.html, acessado em 24/06/2018.
@@ -214,6 +214,16 @@ cv2.destroyAllWindows()\end{lstlisting}
 		\bibitem{b6} http://www.allposters.com.br/-sp/Matrix-posters\_i8032466\_.html, acessado em 24/06/2018.
 
 		\bibitem{b7} https://oglobo.globo.com/cultura/musica/iron-maiden-vem-ao-brasil-para-cinco-shows-em-						marco-17699861, acessado em 24/06/2018.
+		
+		\bibitem{b8} KING, Davis E. Dlib-ml: A machine learning toolkit. Journal of Machine Learning Research, v. 10, 			n. Jul, p. 1755-1758, 2009.
+		
+		\bibitem{b9} PROTAS, Églen da Veiga. Visualização de Camadas Intermediárias de Redes Neurais
+		Convolucionais de Transformação de Imagem. 2017. 148 f. Dissertação (Mestrado) –
+		Programa de Pós-Graduação em Computação. Universidade Federal do Rio Grande, Rio
+		Grande.
+		
+		\bibitem{b10} Haykin, Simon S., et al. Neural networks and learning machines. Vol. 3. Upper Saddle River, NJ, 			USA:: Pearson, 2009.
+
 		
 	  \end{thebibliography}
 

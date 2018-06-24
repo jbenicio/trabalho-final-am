@@ -130,10 +130,10 @@ cv2.destroyAllWindows()\end{lstlisting}
          
          As linhas 7, 8 e 9 são responsáveis por percorrer as coordenadas de todas as faces detectadas e desenhar um retângulo em volta de cada uma delas. Por fim, as linhas 11, 12 e 13 exibem a imagem com as faces detectadas.
          
-         Foram utilizadas como entradas no programa apresentado na \textit{Listing} 1 as Figuras 4, 5 e 6:
+         Foram utilizadas como entradas do programa apresentado na \textit{Listing} 1 as Figuras 4, 5 e 6:
          
          \begin{figure}[h!b]
-			\centering \includegraphics[width=7cm,height=5cm]{brasil_1994.jpg}
+			\centering \includegraphics[width=7cm,height=4cm]{brasil_1994.jpg}
 			\caption{Imagem utilizada como exemplo para detecção facial \cite{b5}} 
 		\end{figure}
 		
@@ -148,10 +148,56 @@ cv2.destroyAllWindows()\end{lstlisting}
 		\end{figure}
 
 	\section{RESULTADOS OBTIDOS}
+        Como podem ser visto nas Figuras 4, 5 e 6, foram utilizadas imagens com características diferentes. A Figura 4 (522 x 334 pixels), foto da seleção brasileira de 1994, é uma imagem que não possui uma boa qualidade, em que existem 11 faces humanas masculinas com cores de peles diferentes. A Figura 5 (330 x 488 pixels), foto do pôster do filme Matrix, existem 3 faces humanas masculina e 1 feminina e possui tom de cores voltados para o preto e o branco . Todas as faces estão utilizando óculos escuros e duas são carecas. A imagem 6 (699 x 420), foto de um show da banda de rock Iron Maiden, possui 3 faces humanas masculinas, em que duas delas possuem cabelos grandes e outra está com com um microfone próxima a boca. Nesta foto, cada face possui uma inclinação diferentes. 
+        
+        
+		As Figuras 7, 8 e 9 são as saídas do programa:
+		
+		 \begin{figure}[h!b]
+			\centering \includegraphics[width=7cm,height=4cm]{brasil_1994_detectada.png}
+			\caption{Imagem utilizada como exemplo para detecção facial \cite{b5}} 
+		\end{figure}
+		
+	    \begin{figure}[h!b]
+			\centering \includegraphics[width=4cm,height=6cm]{matrix_detectada.png}
+			\caption{Imagem utilizada como exemplo para detecção facial \cite{b6}} 
+		\end{figure}
+
+         \begin{figure}[h!b]
+			\centering \includegraphics[width=7cm,height=4cm]{iron_detectada.png}
+			\caption{Imagem utilizada como exemplo para detecção facial \cite{b7}} 
+		\end{figure}
+		
+        Como podem ser visto nas Figuras 7, 8 e 9, todas as faces contidas nas três figuras foram identificadas. Uma métrica útil é a confiança que pode ser obtida com o uso da DLIB. Para isto, basta acessar o atributo confidence da classe dlib.mmod\_rectangle, isto pode ser feito com a substituição da linha 8 do programa apresentado na \textit{Listing} 1 pela seguinte linha apresentada na \textit{Listing 2}:
+        
+\begin{lstlisting}[breaklines=true, language=Python, caption=Código para descobrir a confiança no DLIB]
+    e, t, d, b, conf = (int(face.rect.left()), int(face.rect.top()), int(face.rect.right()), int(face.rect.bottom()), face.confidence)\end{lstlisting}
+
+        Na \textit{Listing 2} foi adicionado a variável "conf" que irá receber o valor do atributo "face.confidence". Quanto maior o valor deste atributo, maior será a "certeza" de detecção de uma face humana. A tabela 1 apresenta os níveis de confiança das faces detectadas para as três imagens:
+        
+		\begin{table}[h!b]
+		\caption{valores de Confiança}
+		\label{table}
+		\setlength{\tabcolsep}{4pt}
+		\begin{tabular}{|p{30pt}|p{50pt}|p{90pt}|p{50pt}|}
+			\hline
+				Figura & Número de faces detectadas & Valores de Confiança & Média dos valores de Confiança\\
+			\hline
+				Figura 7 & 11 & 1.0981, 1.0935, 1.0777, 1.0762, 1.0748, 1.0693, 1.0571, 1.0301, 0.9989, 0.9965, 0.9505 				& 1.0475 \\
+			\hline
+				Figura 8 & 4 & 1.0564, 1.0556, 1.0530, 1.0426 & 1.0512\\ 
+			\hline
+				Figura 9 & 3 & 1.1002, 0.9175, 0.8070 & 0.9416\\ 
+			\hline
+		\end{tabular}
+		\label{tab1}
+		\end{table}        
+          
+          A partir da Tabela 1 pode-se observar que as Figuras 7 e 8 apresentaram níveis médios de confiança próximos, sendo que a Figura 8 apresentou um valor ligeiramente maior. Por outro lado, a Figura 9 foi a que apresentou o menor valor dentre todas as imagens, isto pode ter ocorrido devido as faces na Figura 9 apresentarem uma maior inclinação e rotação se comparado as faces nas outras imagens.
 	
 	\section{CONCLUSÕES}
-
-          
+         
+      
          
 	  \begin{thebibliography}{00}
 	  
@@ -168,9 +214,6 @@ cv2.destroyAllWindows()\end{lstlisting}
 		\bibitem{b6} http://www.allposters.com.br/-sp/Matrix-posters\_i8032466\_.html, acessado em 24/06/2018.
 
 		\bibitem{b7} https://oglobo.globo.com/cultura/musica/iron-maiden-vem-ao-brasil-para-cinco-shows-em-						marco-17699861, acessado em 24/06/2018.
-
-
-
 		
 	  \end{thebibliography}
 

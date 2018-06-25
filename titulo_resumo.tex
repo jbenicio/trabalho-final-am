@@ -64,7 +64,7 @@
 		
 	    As redes neurais convolucionais são utilizadas para a maioria das soluções de CV, aplicadas a uma ampla variedade de tarefas, dentre elas, a detecção facial. As CNNs tem apresentado resultados satisfatórios para problemas relacionados ao reconhecimento de padrões em imagens, com um custo computacional menor se comparado a uma rede neural clássica, pois buscam explorar subestruturas presentes nas imagens para otimizar o processamento.
 	    
-		Atualmente, diversas linguagens de programação e ferramentas possuem implementações que utilizam redes neurais convolucionais para a resolução de problemas relacionados a detecção de faces. Dentre estas soluções, podemos destacar a biblioteca DLIB utilizada em Python. Esta biblioteca foi escrita em C++ e permite a extração de 68 pontos na face, detectando o seu contorno, bem como o dos olhos, do nariz e da boca. Este artigo tem como objetivo a implementação de uma aplicação de em Python utilizando a biblioteca DLIB para a detecção de faces humanas em imagens.
+		Atualmente, diversas linguagens de programação e ferramentas possuem implementações que utilizam redes neurais convolucionais para a resolução de problemas relacionados a detecção de faces. Dentre estas soluções, podemos destacar a biblioteca DLIB utilizada em Python. Esta biblioteca foi escrita em C++ e permite a extração de 68 pontos na face, detectando o seu contorno, bem como o dos olhos, do nariz e da boca. Possui diversas vantagens em relação a outras implementações, tais como, o fácil aprendizado, a excelente documentação, a alta performance e etc Este artigo tem como objetivo a implementação de uma aplicação de em Python utilizando a biblioteca DLIB para a detecção de faces humanas em imagens.
 		
 		Este artigo está organizado da seguinte forma: a Seção II irá apresentar um estudo sobre os principais conceitos relacionados as redes neurais convolucionais no processamento de imagem; na Seção III será apresentado a aplicação desenvolvida em Python para o reconhecimento de faces humanas em imagens; a Seção IV mostrará os resultados obtidos da aplicação desenvolvida e a Seção V irá apresentar as conclusões.   
 		
@@ -122,30 +122,36 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()\end{lstlisting}
 
 
-         Na linha 1 foi feito o \textit{import} da biblioteca openCV (cv2). Esta biblioteca será utilizada para ler a imagem, desenhar os retângulos das faces detectadas nas fotos e também por exibir a imagem com as faces detectadas. A documentação da biblioteca openCV em python pode ser encontrada em \cite{b3}.
+         Na linha 1 foi feito o \textit{import} da biblioteca openCV (cv2). Esta biblioteca será utilizada para ler a imagem, desenhar os retângulos das faces detectadas nas fotos e também por exibir a imagem com as faces detectadas. A documentação da openCV em python pode ser encontrada em \cite{b3}.
          
-         Na linha 2 foi feito o \textit{import} da biblioteca DLIB. Esta biblioteca será utilizada para realizar a detecção de faces humanas em imagens utilizando uma rede neural convolucional. A documentação da biblioteca DLIB em python pode ser encontrada em \cite{b4}.
+         Na linha 2 foi feito o \textit{import} da biblioteca DLIB. Esta biblioteca será utilizada para realizar a detecção de faces humanas em imagens utilizando uma rede neural convolucional. A documentação da DLIB em python pode ser encontrada em \cite{b4}.
          
-         Na linha 4 foi feito o carregamento da imagem utilizando a função cv2.imread(). Na linha 5 o objeto dlib.cnn\_face\_detection\_model\_v1 detecta faces humanas em imagens. O construtor carrega o modelo de detecção facial de um arquivo. No código apresentado na \textit{Listing} 1, foi utilizado o modelo pré-treinado disponível em \url{http://dlib.net/files/mmod\_human\_face\_detector.dat.bz2}. Na linha 6, foi passados como argumento na função detector, a imagem carregada na linha 4 e o valor 2 como segundo argumento, que indica em quanto será aumentado a resolução da imagem. Quanto maior este argumento, maior será o número de faces detectadas na imagem e será exigido um maior poder de processamento da máquina que estiver rodando o programa. A função detector retorna as coordenadas das faces encontradas na imagem.
+         Na linha 4 foi feito o carregamento da imagem utilizando a função cv2.imread(). Na linha 5 o objeto dlib.cnn\_face\_detection\_model\_v1 detecta faces humanas em imagens. O construtor carrega o modelo de detecção facial de um arquivo. No código apresentado na \textit{Listing} 1, foi utilizado o modelo treinado disponível em \url{http://dlib.net/files/mmod\_human\_face\_detector.dat.bz2}. Este modelo é uma CNN que possui inicialmente 3 camadas de subamostragem, que terá por objetivo reduzir o tamanho da imagem em 8 vezes e tendo como saída um mapa de características com 32 dimensões. Logo após as camadas de subamostragens, existem mais 4 camadas de convolução. A plicação utilizada para construir a rede neural convolucional pode ser encontrada em \url{http://dlib.net/dnn\_mmod\_ex.cpp.html} O \textit{dataset} utilizado como treinamento para a CNN pode ser encontrado em \url{http://dlib.net/files/data/dlib_face_detection_dataset-2016-09-30.tar.gz}.
+         
+         Na linha 6, foi passados como argumento na função detector, a imagem carregada na linha 4 e o valor 2 como segundo argumento, que indica em quanto será aumentado a resolução da imagem. Quanto maior este argumento, maior será o número de faces detectadas na imagem e será exigido um maior poder de processamento da máquina que estiver rodando o programa. A função detector retorna as coordenadas das faces encontradas na imagem.
          
          As linhas 7, 8 e 9 são responsáveis por percorrer as coordenadas de todas as faces detectadas e desenhar um retângulo em volta de cada uma delas. Por fim, as linhas 11, 12 e 13 exibem a imagem com as faces detectadas.
          
          Foram utilizadas como entradas do programa apresentado na \textit{Listing} 1 as Figuras 4, 5 e 6:
          
          \begin{figure}[h!b]
-			\centering \includegraphics[width=7cm,height=4cm]{brasil_1994.jpg}
+			\centering \includegraphics[width=7cm,height=3.7cm]{brasil_1994.jpg}
 			\caption{Imagem utilizada como exemplo para detecção facial \cite{b5}} 
 		\end{figure}
 		
 	    \begin{figure}[h!b]
-			\centering \includegraphics[width=4cm,height=6cm]{matrix.jpg}
+			\centering \includegraphics[width=4cm,height=5.5cm]{matrix.jpg}
 			\caption{Imagem utilizada como exemplo para detecção facial \cite{b6}} 
 		\end{figure}
 
-         \begin{figure}[h!b]
-			\centering \includegraphics[width=7cm,height=4cm]{iron.jpg}
+         \begin{figure}[h]
+			\centering \includegraphics[width=7cm,height=3.7cm]{iron.jpg}
 			\caption{Imagem utilizada como exemplo para detecção facial \cite{b7}} 
 		\end{figure}
+
+\bigskip
+\bigskip
+\bigskip
 
 	\section{RESULTADOS OBTIDOS}
         Como podem ser visto nas Figuras 4, 5 e 6, foram utilizadas imagens com características diferentes. A Figura 4 (522 x 334 pixels), foto da seleção brasileira de 1994, é uma imagem que não possui uma boa qualidade, em que existem 11 faces humanas masculinas com cores de peles diferentes. A Figura 5 (330 x 488 pixels), foto do pôster do filme Matrix, existem 3 faces humanas masculina e 1 feminina e possui tom de cores voltados para o preto e o branco . Todas as faces estão utilizando óculos escuros e duas são carecas. A imagem 6 (699 x 420), foto de um show da banda de rock Iron Maiden, possui 3 faces humanas masculinas, em que duas delas possuem cabelos grandes e outra está com com um microfone próxima a boca. Nesta foto, cada face possui uma inclinação diferentes. 
@@ -154,20 +160,20 @@ cv2.destroyAllWindows()\end{lstlisting}
 		As Figuras 7, 8 e 9 são as saídas do programa:
 		
 		 \begin{figure}[h!b]
-			\centering \includegraphics[width=7cm,height=4cm]{brasil_1994_detectada.png}
+			\centering \includegraphics[width=7cm,height=3.7cm]{brasil_1994_detectada.png}
 			\caption{Figura 4 com as faces detectadas} 
 		\end{figure}
 		
 	    \begin{figure}[h!b]
-			\centering \includegraphics[width=4cm,height=6cm]{matrix_detectada.png}
+			\centering \includegraphics[width=4cm,height=5.5cm]{matrix_detectada.png}
 			\caption{Figura 5 com as faces detectadas} 
 		\end{figure}
 
-         \begin{figure}[h!b]
-			\centering \includegraphics[width=7cm,height=4cm]{iron_detectada.png}
+         \begin{figure}[h]
+			\centering \includegraphics[width=7cm,height=3.7cm]{iron_detectada.png}
 			\caption{Figura 6 com as faces detectadas} 
 		\end{figure}
-		
+	
         Como podem ser visto nas Figuras 7, 8 e 9, todas as faces contidas nas três figuras foram identificadas. Uma métrica útil é a confiança que pode ser obtida com o uso da DLIB. Para isto, basta acessar o atributo confidence da classe dlib.mmod\_rectangle, isto pode ser feito com a substituição da linha 8 do programa apresentado na \textit{Listing} 1 pela seguinte linha apresentada na \textit{Listing 2}:
         
 		\begin{lstlisting}[breaklines=true, language=Python, caption=Código para descobrir a confiança no DLIB]
@@ -196,7 +202,7 @@ cv2.destroyAllWindows()\end{lstlisting}
           A partir da Tabela 1 pode-se observar que as Figuras 7 e 8 apresentaram níveis médios de confiança próximos, sendo que a Figura 8 apresentou um valor ligeiramente maior. Por outro lado, a Figura 9 foi a que apresentou o menor valor dentre todas as imagens, isto pode ter ocorrido devido as faces na Figura 9 apresentarem uma maior inclinação e rotação se comparado as faces nas outras imagens.
 	
 	\section{CONCLUSÕES}
-         Este artigo apresentou uma simples e eficiente aplicação escrita em Python para o reconhecimento de faces humanas em imagens utilizando redes neurais convolucionais. Foram avaliadas 3 imagens com características diferentes, como qualidade, tons e faces com as mais variadas características. Nos 3 casos, a aplicação reconheceu todas as faces, apresentando excelentes resultados. 
+         Este artigo apresentou uma simples e eficiente aplicação escrita em Python para o reconhecimento de faces humanas em imagens baseado em um modelo que utiliza redes neurais convolucionais. Foram avaliadas 3 imagens com características diferentes, como qualidade, tons e faces com as mais variadas características. Nos 3 casos, a aplicação reconheceu todas as faces, apresentando excelentes resultados. 
         
          Apesar dos bons resultados obtidos com as imagens testadas, é recomendado o uso da biblioteca DLIB em máquinas que possuem um alto poder de processamento para o reconhecimento de faces em certas imagens.
       

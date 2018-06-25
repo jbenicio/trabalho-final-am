@@ -64,7 +64,7 @@
 		
 	    As redes neurais convolucionais são utilizadas para a maioria das soluções de CV, aplicadas a uma ampla variedade de tarefas, dentre elas, a detecção facial. As CNNs tem apresentado resultados satisfatórios para problemas relacionados ao reconhecimento de padrões em imagens, com um custo computacional menor se comparado a uma rede neural clássica, pois buscam explorar subestruturas presentes nas imagens para otimizar o processamento.
 	    
-		Atualmente, diversas linguagens de programação e ferramentas possuem implementações que utilizam redes neurais convolucionais para a resolução de problemas relacionados a detecção de faces. Dentre estas soluções, podemos destacar a biblioteca DLIB utilizada em Python. Esta biblioteca foi escrita em C++ e possui diversas vantagens em relação a outras implementações, tais como, o fácil aprendizado, a excelente documentação, a alta performance e etc. Este artigo tem como objetivo a implementação de uma aplicação de em Python utilizando a biblioteca DLIB para a detecção de faces humanas em imagens.
+		Atualmente, diversas linguagens de programação e ferramentas possuem implementações que utilizam redes neurais convolucionais para a resolução de problemas relacionados a detecção de faces. Dentre estas soluções, podemos destacar a biblioteca DLIB utilizada em Python. Esta biblioteca foi escrita em C++ e permite a extração de 68 pontos na face, detectando o seu contorno, bem como o dos olhos, do nariz e da boca. Este artigo tem como objetivo a implementação de uma aplicação de em Python utilizando a biblioteca DLIB para a detecção de faces humanas em imagens.
 		
 		Este artigo está organizado da seguinte forma: a Seção II irá apresentar um estudo sobre os principais conceitos relacionados as redes neurais convolucionais no processamento de imagem; na Seção III será apresentado a aplicação desenvolvida em Python para o reconhecimento de faces humanas em imagens; a Seção IV mostrará os resultados obtidos da aplicação desenvolvida e a Seção V irá apresentar as conclusões.   
 		
@@ -106,7 +106,7 @@
 	 
           O programa abaixo foi utilizado para a detecção facial:	   
          
-	\begin{lstlisting}[breaklines=true, language=Python, caption=Programa utilizado para detecção facial]
+		  \begin{lstlisting}[breaklines=true, language=Python, caption=Programa utilizado para detecção facial]
 import cv2
 import dlib
 
@@ -170,10 +170,10 @@ cv2.destroyAllWindows()\end{lstlisting}
 		
         Como podem ser visto nas Figuras 7, 8 e 9, todas as faces contidas nas três figuras foram identificadas. Uma métrica útil é a confiança que pode ser obtida com o uso da DLIB. Para isto, basta acessar o atributo confidence da classe dlib.mmod\_rectangle, isto pode ser feito com a substituição da linha 8 do programa apresentado na \textit{Listing} 1 pela seguinte linha apresentada na \textit{Listing 2}:
         
-\begin{lstlisting}[breaklines=true, language=Python, caption=Código para descobrir a confiança no DLIB]
+		\begin{lstlisting}[breaklines=true, language=Python, caption=Código para descobrir a confiança no DLIB]
     e, t, d, b, conf = (int(face.rect.left()), int(face.rect.top()), int(face.rect.right()), int(face.rect.bottom()), face.confidence)\end{lstlisting}
 
-        Na \textit{Listing 2} foi adicionado a variável "conf" que irá receber o valor do atributo "face.confidence". Quanto maior o valor deste atributo, maior será a "certeza" de detecção de uma face humana. A tabela 1 apresenta os níveis de confiança das faces detectadas para as três imagens:
+        Na \textit{Listing 2} foi adicionado a variável "conf" que irá receber o valor do atributo "face.confidence". Quanto maior o valor deste atributo, maior será a "certeza" de detecção de uma face humana. A Tabela 1 apresenta os níveis de confiança das faces detectadas para as três imagens:
         
 		\begin{table}[h!b]
 		\caption{valores de Confiança}
@@ -196,7 +196,9 @@ cv2.destroyAllWindows()\end{lstlisting}
           A partir da Tabela 1 pode-se observar que as Figuras 7 e 8 apresentaram níveis médios de confiança próximos, sendo que a Figura 8 apresentou um valor ligeiramente maior. Por outro lado, a Figura 9 foi a que apresentou o menor valor dentre todas as imagens, isto pode ter ocorrido devido as faces na Figura 9 apresentarem uma maior inclinação e rotação se comparado as faces nas outras imagens.
 	
 	\section{CONCLUSÕES}
-         
+         Este artigo apresentou uma simples e eficiente aplicação escrita em Python para o reconhecimento de faces humanas em imagens utilizando redes neurais convolucionais. Foram avaliadas 3 imagens com características diferentes, como qualidade, tons e faces com as mais variadas características. Nos 3 casos, a aplicação reconheceu todas as faces, apresentando excelentes resultados. 
+        
+         Apesar dos bons resultados obtidos com as imagens testadas, é recomendado o uso da biblioteca DLIB em máquinas que possuem um alto poder de processamento para o reconhecimento de faces em certas imagens.
       
          
 	  \begin{thebibliography}{00}
@@ -223,7 +225,6 @@ cv2.destroyAllWindows()\end{lstlisting}
 		Grande.
 		
 		\bibitem{b10} Haykin, Simon S., et al. Neural networks and learning machines. Vol. 3. Upper Saddle River, NJ, 			USA:: Pearson, 2009.
-
 		
 	  \end{thebibliography}
 
